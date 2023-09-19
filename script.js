@@ -1,61 +1,4 @@
-// document.getElementById("loginform").addEventListener("submit", function (event) {
-//     event.preventDefault();
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const submitButton = document.getElementById("submitButton");
-//     const nameInput = document.getElementById("name");
-//     const emailInput = document.getElementById("email");
-//     const passwordInput = document.getElementById("password");
-
-// Get the entered username and password
-// const enteredUsername = document.getElementById("username").value;
-// const enteredPassword = document.getElementById("password").value;
-
-// submitButton.addEventListener("click", () => {debugger
-//     const nameInputValue = document.getElementById("name").value;
-//     const emailInputValue = document.getElementById("email").value;
-//     const passwordInputValue = document.getElementById("password").value;
-//     const formData = {
-//         name: nameInputValue,
-//         email: emailInputValue,
-//         password: passwordInputValue
-//     };
-//     console.log(formData,"formdata");
-//     fetch('http://localhost:8080/sign-up', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.parse(formData)
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error("Network response was not ok");
-//         }
-//         console.log("response", response)// return response.json();
-//     })
-//     .then(data => {
-//         // Display API response in the result div
-//         // resultDiv.textContent = data.message;
-//     })
-//     .catch(error => {
-//         console.error("Error fetching data:", error);
-//     });
-// });
-
-// Check if the entered username and password match your criteria
-// Replace this with your actual validation logic
-// if (enteredUsername === "desiredUsername" && enteredPassword === "desiredPassword") {
-//     // Authentication successful, you can redirect or perform other actions here
-//     console.log("Login successful");
-// } else {
-//     // Display an error message if authentication fails
-//     const messageElement = document.getElementById("message");
-//     messageElement.textContent = "Invalid username or password. Please try again.";
-// }
-
-//});
-
+//Signup
 var form = document.getElementById("submitButton");
 let data;
 form.addEventListener("click", function (e) {
@@ -88,3 +31,49 @@ form.addEventListener("click", function (e) {
       }
     });
 });
+
+//Login
+var getID = document.getElementById('login-form');
+if(getID){
+document.getElementById('login-form').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  const apiUrl = 'http://localhost:8080/authenticate';debugger
+  const username = document.getElementById('email1').value;
+  const password = document.getElementById('password1').value;
+  const tokenResult = document.getElementById('token-result');
+  let formData = {
+      email: username,
+      password:password
+  }
+  try {
+    const response = await fetch(apiUrl, {
+         method: 'POST',
+      headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+         },
+         body: JSON.stringify(formData),
+     });
+
+     if (!response.ok) {
+          throw new Error('Login failed');
+      }
+
+      const data = await response.json();
+
+      if (!data.jwtToken) {
+          throw new Error('Token not found in response');
+      }
+
+      const jwtToken = data.jwtToken;
+      if (jwtToken) {
+        window.location.href="./reportsubmission.html";
+      }
+    // tokenResult.innerHTML = `JWT Token: ${jwtToken}`;
+  } catch (error) {
+      console.error('Error fetching JWT token:', error);
+      tokenResult.innerHTML = 'Login failed';
+  }
+});
+}
