@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <!-- Sidebar content goes here -->
+                <a class="active" href="#home">Menu</a>
+                <a href="./dashboard.html">Dashboard</a>
+                <a href="./reportsubmission.html">Report Submission</a>
+                <a href="./reportlisting.html">Report Listing</a>
+        </div>
+        <div class="main-content">
+            <h1>Employee Dashboard</h1>
+            <table id="employee-table">
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>EmployeeName</th>
+                        <th>ProjectName</th>
+                        <th>Date</th>
+                        <th>HoursWorked</th>
+                        <th>Comments</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <div class="card">
+                        <h2>Total Employee</h2>
+                        <p id="totalEmployeeCount">Loading...</p>
+                    </div>
+                    <div>
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate">
+                        <button id="filterButton">Filter</button>
+                    </div>
+                   
+                    <!-- Employee data will be added here dynamically -->
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+    <div class="logout" style="position: absolute; right: 3%; top: 6%;">
+        <button style="padding: 10px;border-radius: 12px; background: #df4e5d; color: #fff;" id="logoutButton"><a style="text-decoration: none;color: #fff;" href="./index.html">Logout  </a> </button>
+    </div>
+    <script src="./dashboard.js"></script>
+</body>
+</html>
